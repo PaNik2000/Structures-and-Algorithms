@@ -22,34 +22,28 @@ string Tree::getValue()
 
 bool Tree::addSon(string name, string value, int sonsCount)
 {
-    if (m_value == name)
-    {
-        for (int i = 0; i < m_sonsCount; i++)
-        {
-            if (m_sons[i].m_value == "")
-            {
-                m_sons[i].m_value = value;
-                m_sons[i].m_sonsCount = sonsCount;
+    Tree* temp = this->find(name);
 
-                m_sons[i].m_sons = new Tree[sonsCount];
-                return true;
-            }
-        }
-        cout << "Error : can't add more sons to " << m_value << endl;
-        return true;
+    if (temp == nullptr)
+    {
+        cout << "Error : can't find person with name " << name << endl;
+        return false;
     }
 
-    bool result = false;
-    for (int i = 0; i < m_sonsCount; i++)
+    for (int i = 0; i < temp->m_sonsCount; i++)
     {
-        result = m_sons[i].addSon(name, value, sonsCount);
-        if (result == true)
+        if (temp->m_sons[i].m_value == "")
         {
-            return result;
+            temp->m_sons[i].m_value = value;
+            temp->m_sons[i].m_sonsCount = sonsCount;
+
+            temp->m_sons[i].m_sons = new Tree[sonsCount];
+            return true;
         }
     }
 
-    return result;
+    cout << "Error : can't add more sons to " << name << endl;
+    return false;
 }
 
 Tree* Tree::find(string value)
