@@ -47,5 +47,14 @@ int main(int argc, char** argv)
         }
     }
 
+    string name1;
+    string name2;
+    enterStop = false;
+
+    cout << "Enter names of two persons: ";
+    cin >> name1 >> name2;
+
+    tree.relationOf(name1, name2);
+
     return 0;
 }

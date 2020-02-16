@@ -81,3 +81,65 @@ void Tree::show(int offset)
         m_sons[i].show(offset + 1);
     }
 }
+
+void Tree::relationOf(string name1, string name2)
+{
+    if (name1 == name2)
+    {
+        cout << "Error : Names must be different" << endl;
+    }
+    else if (find(name1) == nullptr)
+    {
+        cout << "Error : There is no person with name " << name1 << endl;
+    }
+    else if (find(name2) == nullptr)
+    {
+        cout << "Error : There is no person with name " << name2 << endl;
+    }
+    else
+    {
+        _relationOf(name1, name2);
+    }
+}
+
+int Tree::_relationOf(string name1, string name2)
+{
+    int count = 0;
+    int temp;
+    for (int i = 0; i < m_sonsCount; i++)
+    {
+        temp = m_sons[i]._relationOf(name1, name2);
+        if (temp == 2)
+        {
+            return temp;
+        }
+        if (temp == 1)
+        {
+            ++count;
+        }
+    }
+
+    if (count == 2)
+    {
+        cout << m_value << " is ancestor of " << name1 << " and " << name2;
+    }
+    else if (count == 1)
+    {
+        if (m_value == name1)
+        {
+            cout << name1 << " is ancestor of " << name2 << endl;
+            ++count;
+        }
+        else if (m_value == name2)
+        {
+            cout << name2 << " is ancestor of " << name1 << endl;
+            ++count;
+        }
+    }
+    else if (m_value == name1 || m_value == name2)
+    {
+        ++count;
+    }
+
+    return count;
+}

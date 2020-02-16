@@ -14,6 +14,8 @@ private:
     string m_value;
     int m_sonsCount;
     Tree* m_sons;
+
+    int _relationOf(string name1, string name2);
 public:
 
     Tree();
@@ -28,6 +30,8 @@ public:
     Tree* find(string value);
 
     void show(int offset = 0);
+
+    void relationOf(string name1, string name2);
 };
 
 #endif
