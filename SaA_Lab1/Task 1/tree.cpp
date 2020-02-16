@@ -20,7 +20,7 @@ string Tree::getValue()
     return m_value;
 }
 
-bool Tree::addSon(string name, string value, int sonsCount)
+bool Tree::add(string name, string value, int sonsCount)
 {
     Tree* temp = this->find(name);
 

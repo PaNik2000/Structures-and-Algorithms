@@ -4,7 +4,10 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
+using std::string;
+using std::cout;
+using std::endl;
+
 class Tree
 {
 private:
@@ -20,7 +23,7 @@ public:
     // void setValue(string value);
     // int getSonsCount();
 
-    bool addSon(string name, string value, int sonsCount);
+    bool add(string name, string value, int sonsCount);
 
     Tree* find(string value);
 };
