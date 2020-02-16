@@ -26,6 +26,8 @@ public:
     bool add(string name, string value, int sonsCount);
 
     Tree* find(string value);
+
+    void show(int offset = 0);
 };
 
 #endif

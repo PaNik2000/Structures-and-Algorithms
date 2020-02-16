@@ -54,7 +54,7 @@ Tree* Tree::find(string value)
     }
 
     Tree* result = nullptr;
-    for (int i = 0; i < m_sonsCount; i++)
+    for (int i = 0; i < m_sonsCount && m_sons[i].m_value != ""; i++)
     {
         result = m_sons[i].find(value);
 
@@ -65,4 +65,19 @@ Tree* Tree::find(string value)
     }
 
     return result;
+}
+
+void Tree::show(int offset)
+{
+    for (int i = 0; i < offset; i++)
+    {
+        cout << " ";
+    }
+
+    cout << m_value << endl;
+
+    for (int i = 0; i < m_sonsCount && m_sons[i].m_value != ""; i++)
+    {
+        m_sons[i].show(offset + 1);
+    }
 }

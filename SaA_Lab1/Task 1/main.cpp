@@ -37,7 +37,8 @@ int main(int argc, char** argv)
             }
             else
             {
-                tree.addSon(ancestor, name, count);
+                tree.add(ancestor, name, count);
+                tree.show();
             }
         }
         else
