@@ -7,20 +7,27 @@ using std::endl;
 
 int main(int argc, char** argv)
 {
-    Tree tree = Tree(7);
+    int temp;
+    cout << "Enter the value of root: ";
+    cin >> temp;
+    Tree tree = Tree(temp);
 
-    tree.add(3);
-    tree.add(5);
-    tree.add(4);
-    tree.add(32);
-    tree.add(24);
-    tree.add(45);
+    cout << "Enter next value (or '0' if you want to stop): ";
+    
+    while (true)
+    {
+        cin >> temp;
+        if (temp == 0)
+        {
+            break;
+        }
+        tree.add(temp);
+        tree.show();
+        cout << "Next one: ";
+    }
 
+    cout << "Result tree (height = " << tree.getHeight() << "):" << endl;
     tree.show();
-
-    tree.add(5);
-
-    cout << "Height of the tree: " << tree.getHeight() << endl;
 
     return 0;
 }
