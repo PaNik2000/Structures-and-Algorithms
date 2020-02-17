@@ -24,10 +24,13 @@ public:
     int getValue();
 
     void add(int value);
+    void add(Tree* subTree);
     Tree* find(int value);
     int getHeight();
 
     void show();
+
+    bool remove(int value);
 };
 
 #endif

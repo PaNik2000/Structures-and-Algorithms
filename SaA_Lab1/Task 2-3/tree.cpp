@@ -52,6 +52,37 @@ void Tree::add(int value)
     }
 }
 
+void Tree::add(Tree* subTree)
+{
+    if (subTree->m_value == m_value)
+    {
+        cout << "Error : Tree can't have two same elements" << endl;
+        return;
+    }
+    if (subTree->m_value > m_value)
+    {
+        if (m_right == nullptr)
+        {
+            m_right = subTree;
+        }
+        else
+        {
+            m_right->add(subTree);
+        }
+    }
+    else
+    {
+        if (m_left == nullptr)
+        {
+            m_left = subTree;
+        }
+        else
+        {
+            m_left->add(subTree);
+        }
+    }
+}
+
 Tree* Tree::find(int value)
 {
     Tree* result;
@@ -154,18 +185,36 @@ int Tree::getNumberOfElements()
     return result;
 }
 
+bool Tree::remove(int value)
+{
+    bool result;
 
-// for (int i = 0; i < offset; i++)
-    // {
-    //     cout << " ";
-    // }
-    // cout << m_value << endl;
+    if (m_left->m_value == value)
+    {
+        Tree* temp = m_left;
+        temp->m_right->add(temp->m_left);
+        m_left = temp->m_right;
+        delete temp;
 
-    // if (m_left != nullptr)
-    // {
-    //     m_left->show(offset + 1);
-    // }
-    // if (m_right != nullptr)
-    // {
-    //     m_right->show(offset + 1);
-    // }
+        result = true;
+    }
+    else if (m_right->m_value == value)
+    {
+        Tree* temp = m_right;
+        temp->m_left->add(temp->m_right);
+        m_right = temp->m_left;
+        delete temp;
+
+        result = true;
+    }
+    else
+    {
+        result = m_left->remove(value);
+        if (result != true)
+        {
+            result = m_right->remove(value);
+        }
+    }
+
+    return result;
+}

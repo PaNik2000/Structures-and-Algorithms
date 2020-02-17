@@ -29,5 +29,17 @@ int main(int argc, char** argv)
     cout << "Result tree (height = " << tree.getHeight() << "):" << endl;
     tree.show();
 
+    cout << "Enter value which you want to delete: ";
+    cin >> temp;
+    if (tree.find(temp))
+    {
+        tree.remove(temp);
+        tree.show();
+    }
+    else
+    {
+        cout << "There is no such element";
+    }
+
     return 0;
 }
