@@ -11,9 +11,12 @@ int main(int argc, char** argv)
 
     tree.add(3);
     tree.add(5);
-    tree.add(8);
-    tree.add(2);
     tree.add(4);
+    tree.add(32);
+    tree.add(24);
+    tree.add(45);
+
+    tree.show();
 
     tree.add(5);
 

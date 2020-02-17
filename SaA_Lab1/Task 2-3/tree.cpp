@@ -88,6 +88,72 @@ int Tree::getHeight()
     return (right > left ? right + 1 : left + 1);
 }
 
+void Tree::show()
+{
+    int height = getHeight();
+    int num = getNumberOfElements();
+    int** matrix = new int*[height];
+    for (int i = 0; i < height; i++)
+    {
+        matrix[i] = new int[num];
+    }
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < num; j++)
+        {
+            matrix[i][j] = 0;
+        }
+    }
+
+    _show(matrix, 0, 0);
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < num; j++)
+        {
+            if (matrix[i][j] == 0)
+            {
+                cout << "  ";
+            }
+            else
+            {
+                cout <<" " << matrix[i][j];
+            }
+        }
+        cout << "\n";
+    }
+}
+
+
+int Tree::_show(int** matrix, int x, int y)
+{
+    if (m_left != nullptr)
+    {
+        y = m_left->_show(matrix, x + 1, y);
+    }
+
+    matrix[x][y] = m_value;
+    y++;
+
+    if (m_right != nullptr)
+    {
+        y = m_right->_show(matrix, x + 1, y);
+    }
+
+    return y;
+}
+
+int Tree::getNumberOfElements()
+{
+    int result = 1;
+
+    result += (m_left != nullptr ? m_left->getNumberOfElements() : 0);
+    result += (m_right != nullptr ? m_right->getNumberOfElements() : 0);
+
+    return result;
+}
+
 
 // for (int i = 0; i < offset; i++)
     // {

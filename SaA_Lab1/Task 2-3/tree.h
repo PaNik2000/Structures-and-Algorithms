@@ -13,6 +13,9 @@ private:
     Tree* m_left;
     Tree* m_right;
 
+    int _show(int** matrix, int x, int y);
+    int getNumberOfElements();
+
 public:
     Tree();
     Tree(int value);
@@ -23,6 +26,8 @@ public:
     void add(int value);
     Tree* find(int value);
     int getHeight();
+
+    void show();
 };
 
 #endif
