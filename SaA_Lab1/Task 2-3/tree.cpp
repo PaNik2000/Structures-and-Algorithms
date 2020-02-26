@@ -54,11 +54,6 @@ void Tree::add(int value)
 
 void Tree::add(Tree* subTree)
 {
-    if (subTree->m_value == m_value)
-    {
-        cout << "Error : Tree can't have two same elements" << endl;
-        return;
-    }
     if (subTree->m_value > m_value)
     {
         if (m_right == nullptr)
@@ -85,17 +80,17 @@ void Tree::add(Tree* subTree)
 
 Tree* Tree::find(int value)
 {
-    Tree* result;
+    Tree* result = nullptr;
 
     if (value == m_value)
     {
         result = this;
     }
-    else if (value < m_value)
+    else if (value < m_value && m_left != nullptr)
     {
         result = m_left->find(value);
     }
-    else
+    else if (m_right != nullptr)
     {
         result = m_right->find(value);
     }
@@ -185,35 +180,158 @@ int Tree::getNumberOfElements()
     return result;
 }
 
-bool Tree::remove(int value)
+Tree* Tree::remove(int value)
 {
-    bool result;
-
-    if (m_left->m_value == value)
+    if (find(value) == nullptr)
     {
-        Tree* temp = m_left;
-        temp->m_right->add(temp->m_left);
-        m_left = temp->m_right;
-        delete temp;
-
-        result = true;
+        cout << "There is no such element" << endl;
+        return this;
     }
-    else if (m_right->m_value == value)
+    else if(m_value == value)
     {
-        Tree* temp = m_right;
-        temp->m_left->add(temp->m_right);
-        m_right = temp->m_left;
-        delete temp;
-
-        result = true;
+        if (m_left == nullptr)
+        {
+            return m_right;
+        }
+        if (m_right == nullptr)
+        {
+            return m_left;
+        }
+        
+        Tree* temp = m_left;
+        temp->add(m_right);
+        return temp;
     }
     else
     {
-        result = m_left->remove(value);
-        if (result != true)
+        this->_remove(value);
+        return this;
+    }
+}
+
+void Tree::_remove(int value)
+{
+    if (value < m_value)
+    {
+        if (m_left->m_value == value)
         {
-            result = m_right->remove(value);
+            if (m_left->m_left == nullptr && m_left->m_right == nullptr)
+            {
+                delete m_left;
+                m_left = nullptr;
+            }
+            else
+            {
+                Tree* temp;
+
+                if (m_left->m_left == nullptr && m_left->m_right != nullptr)
+                {
+                    temp = m_left->m_right;
+                }
+                else if (m_left->m_left != nullptr && m_left->m_right == nullptr)
+                {
+                    temp = m_left->m_left;
+                }
+                else
+                {
+                    temp = m_left->m_left;
+                    temp->add(m_left->m_right);
+                }
+
+                delete m_left;
+                m_left = temp;
+            }
         }
+        else
+        {
+            m_left->_remove(value);
+        }
+    }
+    else
+    {
+        if (m_right->m_value == value)
+        {
+            if (m_right->m_left == nullptr && m_right->m_right == nullptr)
+            {
+                delete m_right;
+                m_right = nullptr;
+            }
+            else
+            {
+                Tree* temp;
+
+                if (m_right->m_left == nullptr && m_right->m_right != nullptr)
+                {
+                    temp = m_right->m_right;
+                }
+                else if (m_right->m_left != nullptr && m_right->m_right == nullptr)
+                {
+                    temp = m_right->m_left;
+                }
+                else
+                {
+                    temp = m_right->m_left;
+                    temp->add(m_right->m_right);
+                }
+
+                delete m_right;
+                m_right = temp;
+            }
+        }
+        else
+        {
+            m_right->_remove(value);
+        }
+    }
+}
+
+int max(int a, int b)
+{
+    return a > b ? a : b;
+}
+
+int Tree::getDegree()
+{
+    int result1 = 0;
+    int result2 = 0;
+
+    if (m_left != nullptr)
+    {
+        ++result1;
+        result2 = m_left->getDegree();
+    }
+    if (m_right != nullptr)
+    {
+        ++result1;
+        result2 = max(result2, m_right->getDegree());
+    }
+
+    return max(result1, result2);
+}
+
+int Tree::numberOfMaxDegree()
+{
+    return _numberOfDegree(getDegree());
+}
+
+int Tree::_numberOfDegree(int degree)
+{
+    int result;
+    int currentDegree = 0;
+    if (m_left != nullptr)
+    {
+        ++currentDegree;
+        result = m_left->_numberOfDegree(degree);
+    }
+    if (m_right != nullptr)
+    {
+        ++currentDegree;
+        result = m_right->_numberOfDegree(degree);
+    }
+
+    if (currentDegree == degree)
+    {
+        ++result;
     }
 
     return result;

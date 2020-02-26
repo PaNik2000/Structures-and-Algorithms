@@ -31,15 +31,11 @@ int main(int argc, char** argv)
 
     cout << "Enter value which you want to delete: ";
     cin >> temp;
-    if (tree.find(temp))
-    {
-        tree.remove(temp);
-        tree.show();
-    }
-    else
-    {
-        cout << "There is no such element";
-    }
+    tree = *(tree.remove(temp));
+    tree.show();
+
+    cout << "Degree of a tree: " << tree.getDegree() << endl;
+    cout << "Number of elements which has degree equals to degree of a tree: " << tree.numberOfMaxDegree() << endl;
 
     return 0;
 }

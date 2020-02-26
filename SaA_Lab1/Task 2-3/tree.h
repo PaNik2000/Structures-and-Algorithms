@@ -15,6 +15,8 @@ private:
 
     int _show(int** matrix, int x, int y);
     int getNumberOfElements();
+    int _numberOfDegree(int degree);
+    void _remove(int value);
 
 public:
     Tree();
@@ -30,7 +32,10 @@ public:
 
     void show();
 
-    bool remove(int value);
+    Tree* remove(int value);
+
+    int getDegree();
+    int numberOfMaxDegree();
 };
 
 #endif
