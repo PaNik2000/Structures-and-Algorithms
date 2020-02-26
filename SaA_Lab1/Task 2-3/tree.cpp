@@ -316,17 +316,17 @@ int Tree::numberOfMaxDegree()
 
 int Tree::_numberOfDegree(int degree)
 {
-    int result;
+    int result = 0;
     int currentDegree = 0;
     if (m_left != nullptr)
     {
         ++currentDegree;
-        result = m_left->_numberOfDegree(degree);
+        result += m_left->_numberOfDegree(degree);
     }
     if (m_right != nullptr)
     {
         ++currentDegree;
-        result = m_right->_numberOfDegree(degree);
+        result += m_right->_numberOfDegree(degree);
     }
 
     if (currentDegree == degree)
