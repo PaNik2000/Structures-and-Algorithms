@@ -37,5 +37,27 @@ int main(int argc, char** argv)
     cout << "Degree of a tree: " << tree.getDegree() << endl;
     cout << "Number of elements which has degree equals to degree of a tree: " << tree.numberOfMaxDegree() << endl;
 
+    int* nose = tree.getNumberOfSpecialElements();
+    if (nose[0] == 0)
+    {
+        cout << "There is no special elements" << endl;
+    }
+    else
+    {
+        cout << "Special elements: ";
+        for (int i = 0; nose[i] != 0; i++)
+        {
+            cout << nose[i];
+            if (nose[i + 1] != 0)
+            {
+                cout << " ";
+            }
+            else
+            {
+                cout << "\n";
+            }
+        }
+    }
+
     return 0;
 }

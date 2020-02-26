@@ -197,7 +197,7 @@ Tree* Tree::remove(int value)
         {
             return m_left;
         }
-        
+
         Tree* temp = m_left;
         temp->add(m_right);
         return temp;
@@ -335,4 +335,67 @@ int Tree::_numberOfDegree(int degree)
     }
 
     return result;
+}
+
+int foo(int height)
+{
+    int result = 0;
+    int count = 1;
+    
+    for (int i = height; i > 2; i--)
+    {
+        result += count;
+        count *= 2;
+    }
+
+    return result;
+}
+
+int* Tree::getNumberOfSpecialElements()
+{
+    int height = getHeight();
+    if (height > 2)
+    {
+        int capacity = foo(height);
+        int* result = new int[capacity + 1];
+        result[0] = 0;
+        _getNumberOfSpecialElements(result);
+
+        return result;
+    }
+    else
+    {
+        return new int[1]{0};
+    }
+}
+
+void Tree::_getNumberOfSpecialElements(int* array)
+{
+    int leftH = (m_left != nullptr ? m_left->getHeight() : 0);
+    int rightH = (m_right != nullptr ? m_right->getHeight() : 0);
+
+    if (leftH == rightH && leftH != 0)
+    {
+        if (m_left->getNumberOfElements() != m_right->getNumberOfElements())
+        {
+            for (int i = 0; ;i++)
+            {
+                if (array[i] == 0)
+                {
+                    array[i] = m_value;
+                    array[i + 1] = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    if (leftH > 2)
+    {
+        m_left->_getNumberOfSpecialElements(array);
+    }
+    if(rightH > 2)
+    {
+        m_right->_getNumberOfSpecialElements(array);
+    }
 }
