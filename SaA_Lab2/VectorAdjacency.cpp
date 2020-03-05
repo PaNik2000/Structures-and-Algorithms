@@ -10,14 +10,14 @@ void VectorAdjacency::addNode()
 {
     for (auto i : values)
     {
-        if (i[0] == -1)
+        if (!i.empty() && i[0] == -1)
         {
             i.clear();
             return;
         }
     }
 
-    values.push_back({});
+    values.push_back(vector<int>());
 }
 
 void VectorAdjacency::deleteNode(int node)
@@ -29,11 +29,12 @@ void VectorAdjacency::deleteNode(int node)
 
         for (auto& i : values)
         {
-            for (auto& j : i)
+            std::vector<int>::iterator iter = i.begin(); 
+            for (;  iter != i.end(); iter++)
             {
-                if (j == node)
+                if (*iter == node)
                 {
-                    i.erase(j);
+                    i.erase(iter);
                 }
             }
         }
@@ -42,8 +43,9 @@ void VectorAdjacency::deleteNode(int node)
 
 bool VectorAdjacency::addEdge(int first, int second)
 {
-    if (first >= 0 && first < values.size() && values[first][0] != -1)
+    if (first >= 0 && first < values.size())
     {
+        if (values[first].empty() || values[first][0] != -1)
         values[first].push_back(second);
 
         return true;
@@ -56,11 +58,12 @@ bool VectorAdjacency::deleteEdge(int first, int second)
 {
     if (first < values.size() && first >= 0 && values[first][0] != -1)
     {
-        for (auto& i : values[first])
+        std::vector<int>::iterator iter;
+        for (iter = values[first].begin(); iter != values[first].end(); iter++)
         {
-            if (i == second)
+            if (*iter == second)
             {
-                values[first].erase(i)
+                values[first].erase(iter);
 
                 return true;
             }
@@ -86,7 +89,7 @@ bool VectorAdjacency::hasNode(int node)
 {
     if (node >= 0 && node < values.size())
     {
-        if (values[node] != -1)
+        if (values[node].empty() || values[node][0] != -1)
         {
             return true;
         }
@@ -119,7 +122,7 @@ int VectorAdjacency::getPlusDegree(int node)
     {
         if (values[node][0] != -1)
         {
-            result = vaules[node].size();
+            result = values[node].size();
         }
         else
         {
@@ -136,7 +139,7 @@ int VectorAdjacency::getPlusDegree(int node)
 
 int VectorAdjacency::getMinusDegree(int node)
 {
-    result = 0;
+    int result = 0;
     if (node >= 0 && node < values.size() && values[node][0] != -1)
     {
         for (auto i : values)

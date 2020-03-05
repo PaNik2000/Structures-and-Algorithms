@@ -15,7 +15,7 @@ public:
     ListOfEdges();
     ~ListOfEdges();
 
-    bool insertEdge(int first, int second);
+    bool addEdge(int first, int second);
     bool deleteEdge(int first, int second);
     void printGraph();
 

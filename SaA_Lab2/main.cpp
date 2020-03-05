@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ListOfEdges.h"
+#include "VectorAdjacency.h"
 
 using std::cout;
 using std::cin;
@@ -7,20 +8,29 @@ using std::endl;
 
 int main(int argc, char** argv)
 {
-    ListOfEdges graph = ListOfEdges();
+    ListOfEdges graph1 = ListOfEdges();
+    VectorAdjacency graph2 = VectorAdjacency();
 
-    graph.insertEdge(1, 2);
-    graph.insertEdge(2, 3);
-    graph.insertEdge(1, 3);
-    graph.insertEdge(1, 4);
+    graph1.addEdge(0, 2);
+    graph1.addEdge(2, 1);
+    graph1.addEdge(0, 3);
+    graph1.addEdge(1, 4);
+    
 
-    graph.deleteEdge(2, 3);
-    if (!graph.deleteEdge(3, 4))
-    {
-        cout << "No such edge" << endl;
-    }
-
-    graph.printGraph();
+    graph2.addNode();
+    graph2.addNode();
+    graph2.addNode();
+    graph2.addNode();
+    graph2.addNode();
+    
+    graph2.addEdge(0, 1);
+    graph2.addEdge(2, 1);
+    graph2.addEdge(0, 3);
+    graph2.addEdge(1, 4);
+    
+    graph1.printGraph();
+    cout << "\n";
+    graph2.printGraph();
 
     return 0;
 }

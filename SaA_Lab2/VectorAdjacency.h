@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <iterator>
 
 using std::cout;
 using std::endl;

@@ -4,8 +4,8 @@
 ListOfEdges::ListOfEdges()
 {
     nodes = new int[INITIAL_CAPACITY * 2];
-    nodes[0] = 0;
-    nodes[1] = 0;
+    nodes[0] = -1;
+    nodes[1] = -1;
     capacity = INITIAL_CAPACITY;
 }
 
@@ -18,7 +18,7 @@ int ListOfEdges::getNumberOfEdges()
 {
     for (int i = 0; i < capacity; i++)
     {
-        if (nodes[i * 2] == 0)
+        if (nodes[i * 2] == -1)
         {
             return i;
         }
@@ -53,9 +53,9 @@ bool ListOfEdges::grow()
     return true;
 }
 
-bool ListOfEdges::insertEdge(int first, int second)
+bool ListOfEdges::addEdge(int first, int second)
 {
-    if (first < 1 || second < 1)
+    if (first < 0 || second < 0)
     {
         return false;
     }
@@ -75,8 +75,8 @@ bool ListOfEdges::insertEdge(int first, int second)
 
     if (size < capacity - 1)
     {
-        nodes[size * 2 + 2] = 0;
-        nodes[size * 2 + 3] = 0;
+        nodes[size * 2 + 2] = -1;
+        nodes[size * 2 + 3] = -1;
     }
 
     return true;
@@ -93,8 +93,8 @@ bool ListOfEdges::deleteEdge(int first, int second)
         {
             if (nodes[i * 2] == first && nodes[i * 2 + 1] == second)
             {
-                nodes[i * 2] = 0;
-                nodes[i * 2 + 1] = 0;
+                nodes[i * 2] = -1;
+                nodes[i * 2 + 1] = -1;
                 break;
             }
         }
