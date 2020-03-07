@@ -60,6 +60,14 @@ bool ListOfEdges::addEdge(int first, int second)
         return false;
     }
 
+    for (int i = 0; nodes[i] != -1; i += 2)
+    {
+        if (nodes[i] == first && nodes[i + 1] == second)
+        {
+            return false;
+        }
+    }
+
     int size;
     if ((size = getNumberOfEdges()) == capacity)
     {
