@@ -43,12 +43,20 @@ void VectorAdjacency::deleteNode(int node)
 
 bool VectorAdjacency::addEdge(int first, int second)
 {
-    if (first >= 0 && first < values.size())
+    if (first >= 0 && second >= 0 && first < values.size() && second < values.size())
     {
-        if (values[first].empty() || values[first][0] != -1)
-        values[first].push_back(second);
-
-        return true;
+        if (hasEdge(first, second) == false)
+        {
+            if (!values[first].empty() && values[first][0] == -1)
+            {
+                values[first][0] = second;
+            }
+            else
+            {
+                values[first].push_back(second);
+            }
+            return true;
+        }
     }
 
     return false;

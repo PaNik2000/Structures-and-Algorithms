@@ -45,7 +45,7 @@ bool ListOfEdges::grow()
         return false;
     }
 
-    for (int i = 0; i < capacity / 2; i++)
+    for (int i = 0; i < capacity; i++)
     {
         nodes[i] = temp[i];
     }
@@ -60,7 +60,7 @@ bool ListOfEdges::addEdge(int first, int second)
         return false;
     }
 
-    for (int i = 0; nodes[i] != -1; i += 2)
+    for (int i = 0; nodes[i] != -1 && i != capacity * 2; i += 2)
     {
         if (nodes[i] == first && nodes[i + 1] == second)
         {
