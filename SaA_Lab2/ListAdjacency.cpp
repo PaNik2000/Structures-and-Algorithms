@@ -75,7 +75,7 @@ bool ListAdjacency::deleteEdge(int first, int second)
     {
         list<list<int>>::iterator iter = values.begin();
         advance(iter, first);
-        if ((*iter).front() != 1)
+        if ((*iter).front() != -1)
         {
             list<int>::iterator iter2;
             for (iter2 = (*iter).begin(); iter2 != (*iter).end(); iter2++)
@@ -101,9 +101,9 @@ void ListAdjacency::printGraph()
     for (int i = 0; iter != values.end(); iter++, i++)
     {
         iter2 = (*iter).begin();
-        for (int j = 0; iter2 != (*iter).end(); iter2++, j++)
+        for (; iter2 != (*iter).end(); iter2++)
         {
-            std::cout << "(" << i << ", " << j << ")" << std::endl;
+            std::cout << "(" << i << ", " << *iter2 << ")" << std::endl;
         }
     }
 }

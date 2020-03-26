@@ -2,6 +2,7 @@
 #include "ListOfEdges.h"
 #include "VectorAdjacency.h"
 #include "MatrixAdjacency.h"
+#include "ListAdjacency.h"
 
 using std::cout;
 using std::cin;
@@ -17,6 +18,7 @@ int main(int argc, char** argv)
     cout << "1. List of edges." << endl;
     cout << "2. Vector of adjacency." << endl;
     cout << "3. Matrix of adjacency." << endl;
+    cout << "4. List of adjacency." << endl;
     cout << "Your choise: ";
     cin >> temp1;
 
@@ -126,6 +128,58 @@ int main(int argc, char** argv)
         else
         {
             MatrixAdjacency graph = MatrixAdjacency(temp1);
+
+            cout << "Edges are entered in format \"<first node> <second node>\"" << endl;
+
+            while (true)
+            {
+                cout << "Enter edge (or -1 if you want to stop):";
+
+                cin >> temp1;
+                if (temp1 == -1)
+                {
+                    break;
+                }
+                cin >> temp2;
+
+                res = graph.addEdge(temp1, temp2);
+                if (!res)
+                {
+                    cout << "Can't add such edge" << endl;
+                }
+            }
+
+            graph.printGraph();
+
+            cout << "Enter edge you want to delete (-1 if don't want): ";
+            cin >> temp1;
+            if (temp1 != -1)
+            {
+                cin >> temp2;
+                graph.deleteEdge(temp1, temp2);
+                
+                graph.printGraph();
+            }
+        }
+    }
+    else if (temp1 == 4)
+    {
+
+        cout << "Working with graph on list of adjacency\n----------" << endl;
+        cout << "Enter number of nodes: ";
+        cin >> temp1;
+        if (temp1 < 1)
+        {
+            cout << "Wrong number of nodes" << endl;
+        }
+        else
+        {
+            ListAdjacency graph;
+
+            for (int i = 0; i < temp1; i++)
+            {
+                graph.addNode();
+            }
 
             cout << "Edges are entered in format \"<first node> <second node>\"" << endl;
 
