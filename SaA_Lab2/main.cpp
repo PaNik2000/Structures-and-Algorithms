@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ListOfEdges.h"
 #include "VectorAdjacency.h"
+#include "MatrixAdjacency.h"
 
 using std::cout;
 using std::cin;
@@ -98,6 +99,50 @@ int main(int argc, char** argv)
         graph2.deleteEdge(temp1, temp2);
         
         graph2.printGraph();
+    }
+
+    cout << "Working with graph on matrix of adjacency\n----------" << endl;
+    cout << "Enter number of nodes: ";
+    cin >> temp1;
+    if (temp1 < 1)
+    {
+        cout << "Wrong number of nodes" << endl;
+    }
+    else
+    {
+        MatrixAdjacency graph3 = MatrixAdjacency(temp1);
+
+        cout << "Edges are entered in format \"<first node> <second node>\"" << endl;
+
+        while (true)
+        {
+            cout << "Enter edge (or -1 if you want to stop):";
+
+            cin >> temp1;
+            if (temp1 == -1)
+            {
+                break;
+            }
+            cin >> temp2;
+
+            res = graph3.addEdge(temp1, temp2);
+            if (!res)
+            {
+                cout << "Can't add such edge" << endl;
+            }
+        }
+
+        graph3.printGraph();
+
+        cout << "Enter edge you want to delete (-1 if don't want): ";
+        cin >> temp1;
+        if (temp1 != -1)
+        {
+            cin >> temp2;
+            graph3.deleteEdge(temp1, temp2);
+            
+            graph3.printGraph();
+        }
     }
 
     return 0;

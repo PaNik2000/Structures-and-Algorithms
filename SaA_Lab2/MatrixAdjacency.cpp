@@ -77,7 +77,7 @@ void MatrixAdjacency::printGraph()
     {
         for (int j = 0; j < numOfNodes; j++)
         {
-            if (values[i][j] = 1)
+            if (values[i][j] == 1)
             {
                 std::cout << "(" << i << ", " << j << ")" << std::endl;
             }
