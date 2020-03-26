@@ -9,109 +9,27 @@ using std::endl;
 
 int main(int argc, char** argv)
 {
-    ListOfEdges graph1 = ListOfEdges();
-    VectorAdjacency graph2 = VectorAdjacency();
-
     bool res;
     int temp1;
     int temp2;
 
-    graph1.addEdge(0, 1);
-    graph1.addEdge(2, 0);
-
-    cout << "Working with graph on list of edges\n----------" << endl;
-    cout << "Initial graph:" << endl;
-    graph1.printGraph();
-    cout << "Edges are entered in format \"<first node> <second node>\"" << endl;
-
-    while (true)
-    {
-        cout << "Enter edge (or -1 if you want to stop):";
-
-        cin >> temp1;
-        if (temp1 == -1)
-        {
-            break;
-        }
-        cin >> temp2;
-
-        res = graph1.addEdge(temp1, temp2);
-        if (!res)
-        {
-            cout << "Can't add such edge" << endl;
-        }
-    }
-
-    graph1.printGraph();
-
-    cout << "Enter node you want to work with: ";
+    cout << "Choose type of structure to work with graph" << endl;
+    cout << "1. List of edges." << endl;
+    cout << "2. Vector of adjacency." << endl;
+    cout << "3. Matrix of adjacency." << endl;
+    cout << "Your choise: ";
     cin >> temp1;
 
-    cout << "Does graph have this node: " << ((res = graph1.hasNode(temp1)) ? "true" : "false") << endl;
-    if (res)
+    if (temp1 == 1)
     {
-        cout << "Plus degree of this node: " << graph1.getPlusDegree(temp1) << ". ";
-        cout << "Minus degree of this node: " << graph1.getMinusDegree(temp1) << endl;
+        ListOfEdges graph = ListOfEdges();
 
-    }
+        graph.addEdge(0, 1);
+        graph.addEdge(2, 0);
 
-
-    cout << "Working with graph on vector of adjacency\n----------" << endl;
-    cout << "Enter number of nodes: ";
-    cin >> temp1;
-    if (temp1 < 1)
-    {
-        cout << "Wrong number of nodes" << endl;
-    }
-
-    for (int i = 0; i < temp1; i++)
-    {
-        graph2.addNode();
-    }
-
-    cout << "Edges are entered in format \"<first node> <second node>\"" << endl;
-
-    while (true)
-    {
-        cout << "Enter edge (or -1 if you want to stop):";
-
-        cin >> temp1;
-        if (temp1 == -1)
-        {
-            break;
-        }
-        cin >> temp2;
-
-        res = graph2.addEdge(temp1, temp2);
-        if (!res)
-        {
-            cout << "Can't add such edge" << endl;
-        }
-    }
-
-    graph2.printGraph();
-
-    cout << "Enter edge you want to delete (-1 if don't want): ";
-    cin >> temp1;
-    if (temp1 != -1)
-    {
-        cin >> temp2;
-        graph2.deleteEdge(temp1, temp2);
-        
-        graph2.printGraph();
-    }
-
-    cout << "Working with graph on matrix of adjacency\n----------" << endl;
-    cout << "Enter number of nodes: ";
-    cin >> temp1;
-    if (temp1 < 1)
-    {
-        cout << "Wrong number of nodes" << endl;
-    }
-    else
-    {
-        MatrixAdjacency graph3 = MatrixAdjacency(temp1);
-
+        cout << "Working with graph on list of edges\n----------" << endl;
+        cout << "Initial graph:" << endl;
+        graph.printGraph();
         cout << "Edges are entered in format \"<first node> <second node>\"" << endl;
 
         while (true)
@@ -125,24 +43,126 @@ int main(int argc, char** argv)
             }
             cin >> temp2;
 
-            res = graph3.addEdge(temp1, temp2);
+            res = graph.addEdge(temp1, temp2);
             if (!res)
             {
                 cout << "Can't add such edge" << endl;
             }
         }
 
-        graph3.printGraph();
+        graph.printGraph();
 
-        cout << "Enter edge you want to delete (-1 if don't want): ";
+        cout << "Enter node you want to work with: ";
         cin >> temp1;
-        if (temp1 != -1)
+
+        cout << "Does graph have this node: " << ((res = graph.hasNode(temp1)) ? "true" : "false") << endl;
+        if (res)
         {
-            cin >> temp2;
-            graph3.deleteEdge(temp1, temp2);
-            
-            graph3.printGraph();
+            cout << "Plus degree of this node: " << graph.getPlusDegree(temp1) << ". ";
+            cout << "Minus degree of this node: " << graph.getMinusDegree(temp1) << endl;
+
         }
+    }
+    else if (temp1 == 2)
+    {
+        cout << "Working with graph on vector of adjacency\n----------" << endl;
+        cout << "Enter number of nodes: ";
+        cin >> temp1;
+        if (temp1 < 1)
+        {
+            cout << "Wrong number of nodes" << endl;
+        }
+        else
+        {
+            VectorAdjacency graph = VectorAdjacency();
+
+            for (int i = 0; i < temp1; i++)
+            {
+                graph.addNode();
+            }
+
+            cout << "Edges are entered in format \"<first node> <second node>\"" << endl;
+
+            while (true)
+            {
+                cout << "Enter edge (or -1 if you want to stop):";
+
+                cin >> temp1;
+                if (temp1 == -1)
+                {
+                    break;
+                }
+                cin >> temp2;
+
+                res = graph.addEdge(temp1, temp2);
+                if (!res)
+                {
+                    cout << "Can't add such edge" << endl;
+                }
+            }
+
+            graph.printGraph();
+
+            cout << "Enter edge you want to delete (-1 if don't want): ";
+            cin >> temp1;
+            if (temp1 != -1)
+            {
+                cin >> temp2;
+                graph.deleteEdge(temp1, temp2);
+                
+                graph.printGraph();
+            }
+        }
+    }
+    else if (temp1 == 3)
+    {
+        cout << "Working with graph on matrix of adjacency\n----------" << endl;
+        cout << "Enter number of nodes: ";
+        cin >> temp1;
+        if (temp1 < 1)
+        {
+            cout << "Wrong number of nodes" << endl;
+        }
+        else
+        {
+            MatrixAdjacency graph = MatrixAdjacency(temp1);
+
+            cout << "Edges are entered in format \"<first node> <second node>\"" << endl;
+
+            while (true)
+            {
+                cout << "Enter edge (or -1 if you want to stop):";
+
+                cin >> temp1;
+                if (temp1 == -1)
+                {
+                    break;
+                }
+                cin >> temp2;
+
+                res = graph.addEdge(temp1, temp2);
+                if (!res)
+                {
+                    cout << "Can't add such edge" << endl;
+                }
+            }
+
+            graph.printGraph();
+
+            cout << "Enter edge you want to delete (-1 if don't want): ";
+            cin >> temp1;
+            if (temp1 != -1)
+            {
+                cin >> temp2;
+                graph.deleteEdge(temp1, temp2);
+                
+                graph.printGraph();
+            }
+        }
+    }
+    else
+    {
+        cout << "Wrong choise." << endl;
     }
 
     return 0;
