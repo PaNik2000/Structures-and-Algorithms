@@ -3,6 +3,7 @@
 #include "VectorAdjacency.h"
 #include "MatrixAdjacency.h"
 #include "ListAdjacency.h"
+#include "MatrixWeight.h"
 
 using std::cout;
 using std::cin;
@@ -19,6 +20,7 @@ int main(int argc, char** argv)
     cout << "2. Vector of adjacency." << endl;
     cout << "3. Matrix of adjacency." << endl;
     cout << "4. List of adjacency." << endl;
+    cout << "5. Weights matrix." << endl;
     cout << "Your choise: ";
     cin >> temp1;
 
@@ -195,6 +197,56 @@ int main(int argc, char** argv)
                 cin >> temp2;
 
                 res = graph.addEdge(temp1, temp2);
+                if (!res)
+                {
+                    cout << "Can't add such edge" << endl;
+                }
+            }
+
+            graph.printGraph();
+
+            cout << "Enter edge you want to delete (-1 if don't want): ";
+            cin >> temp1;
+            if (temp1 != -1)
+            {
+                cin >> temp2;
+                graph.deleteEdge(temp1, temp2);
+                
+                graph.printGraph();
+            }
+        }
+    }
+    else if (temp1 == 5)
+    {
+        cout << "Working with graph on weights matrix\n----------" << endl;
+        cout << "Enter number of nodes: ";
+        cin >> temp1;
+        if (temp1 < 1)
+        {
+            cout << "Wrong number of nodes" << endl;
+        }
+        else
+        {
+            MatrixWeight graph = MatrixWeight(temp1);
+            int weight;
+
+            cout << "Edges are entered in format \"<first node> <second node>\" and weight of edge on the next line" << endl;
+
+            while (true)
+            {
+                cout << "Enter nodes of edge (or -1 if you want to stop):";
+
+                cin >> temp1;
+                if (temp1 == -1)
+                {
+                    break;
+                }
+                cin >> temp2;
+
+                cout << "Enter weigth for this edge: ";
+                cin >> weight;
+
+                res = graph.addEdge(temp1, temp2, weight);
                 if (!res)
                 {
                     cout << "Can't add such edge" << endl;
