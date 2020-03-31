@@ -39,52 +39,55 @@ IncidenceMatrix::~IncidenceMatrix()
 
 bool IncidenceMatrix::addEdge(int first, int second)
 {
-    if (hasEdge(second, first))
+    if (hasNode(first) && hasNode(second))
     {
-        for (int i = 0; i < numOfEdges; i++)
+        if (hasEdge(second, first))
         {
-            if (values[second][i] == -1 && values[first][i] == 1)
+            for (int i = 0; i < numOfEdges; i++)
             {
-                values[second][i] = 1;
+                if (values[second][i] == -1 && values[first][i] == 1)
+                {
+                    values[second][i] = 1;
 
-                return true;
-            }
-        }
-    }
-
-    if (!hasEdge(first, second))
-    {
-        int temp[numOfEdges];
-        for (int i = 0; i < numOfNodes; i++)
-        {
-            for (int j = 0; j < numOfEdges; j++)
-            {
-                temp[j] = values[i][j];
-            }
-
-            delete values[i];
-            values[i] = new int[numOfEdges + 1];
-            for(int j = 0; j < numOfEdges; j++)
-            {
-                values[i][j] = temp[j];
-            }
-
-            if (i == first)
-            {
-                values[i][numOfEdges] = -1;
-            }
-            else if (i == second)
-            {
-                values[i][numOfEdges] = 1;
-            }
-            else
-            {
-                values[i][numOfEdges] = 0;
+                    return true;
+                }
             }
         }
 
-        ++numOfEdges;
-        return true;
+        if (!hasEdge(first, second))
+        {
+            int temp[numOfEdges];
+            for (int i = 0; i < numOfNodes; i++)
+            {
+                for (int j = 0; j < numOfEdges; j++)
+                {
+                    temp[j] = values[i][j];
+                }
+
+                delete values[i];
+                values[i] = new int[numOfEdges + 1];
+                for(int j = 0; j < numOfEdges; j++)
+                {
+                    values[i][j] = temp[j];
+                }
+
+                if (i == first)
+                {
+                    values[i][numOfEdges] = -1;
+                }
+                else if (i == second)
+                {
+                    values[i][numOfEdges] = 1;
+                }
+                else
+                {
+                    values[i][numOfEdges] = 0;
+                }
+            }
+
+            ++numOfEdges;
+            return true;
+        }
     }
 
     return false;
@@ -97,12 +100,12 @@ bool IncidenceMatrix::deleteEdge(int first, int second)
         int num;
         for (int i = 0; i < numOfEdges; i++)
         {
-            if (vaules[first][i] == 1 && values[second][i] == 1)
+            if (values[first][i] == 1 && values[second][i] == 1)
             {
                 values[second][i] = -1;
                 return true;
             }
-            if (vaules[first][i] == -1 && values[second][i] == 1)
+            if (values[first][i] == -1 && values[second][i] == 1)
             {
                 num = i;
                 break;
@@ -121,8 +124,8 @@ bool IncidenceMatrix::deleteEdge(int first, int second)
                 temp[j - 1] = values[i][j];
             }
 
-            delete vaules[i];
-            vaules[i] = new int[numOfEdges - 1];
+            delete values[i];
+            values[i] = new int[numOfEdges - 1];
 
             for (int j = 0; j < numOfEdges - 1; j++)
             {
@@ -146,14 +149,7 @@ void IncidenceMatrix::printGraph()
     {
         for (int j = 0; j < numOfNodes; j++)
         {
-            if (temp1 != -1 && temp2 != -1)
-            {
-                std::cout << "(" << temp1 << ", " << temp2 << ")" << std::endl;
-                temp1 = -1;
-                temp2 = -1;
-                break;
-            }
-            else if (values[j][i] == -1)
+            if (values[j][i] == -1)
             {
                 temp1 = j;
             }
@@ -164,24 +160,34 @@ void IncidenceMatrix::printGraph()
                     temp1 = j;
                     std::cout << "(" << temp1 << ", " << temp2 << ")" << std::endl;
                     std::cout << "(" << temp2 << ", " << temp1 << ")" << std::endl;
+                    temp1 = -1;
+                    temp2 = -1;
                     break;
                 }
                 else
                 {
                     temp2 = j;
                 }
-            } 
+            }
+
+            if (temp1 != -1 && temp2 != -1)
+            {
+                std::cout << "(" << temp1 << ", " << temp2 << ")" << std::endl;
+                temp1 = -1;
+                temp2 = -1;
+                break;
+            }
         }
     }
 }
 
-void IncidenceMatrix::printMarix()
+void IncidenceMatrix::printMatrix()
 {
     for (int i = 0; i < numOfNodes; i++)
     {
         for (int j = 0; j < numOfEdges; j++)
         {
-            cout << (values[i][j] == -1 ? "" : " ") << values[i][j] << "," << (j == numOfEdges - 1 ? "\n" : " ");
+            std::cout << (values[i][j] == -1 ? "" : " ") << values[i][j] << "," << (j == numOfEdges - 1 ? "\n" : " ");
         }
     }
 }
